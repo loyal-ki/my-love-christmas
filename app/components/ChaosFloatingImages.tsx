@@ -20,10 +20,14 @@ type Props = {
 
 const IMAGE_POOL = [
   "/floating/nghia.png",
+  "/floating/nghia-1.png",
+  "/floating/nghia-1.png",
+  "/floating/huong-1.png",
   "/floating/huong.png",
+  "/floating/huong-1.png",
 ];
 
-export default function ChaosFloatingImages({ count = 4 }: Props) {
+export default function ChaosFloatingImages({ count = 5 }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const itemsRef = useRef<ChaosItem[]>([]);
 
