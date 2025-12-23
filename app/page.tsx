@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import RootClient from "./RootClient";
 
 export const metadata: Metadata = {
-  title: "My Love",
+  title: "MyLove",
 };
 
 export const viewport: Viewport = {
