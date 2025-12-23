@@ -253,7 +253,9 @@ export default function ChristmasCard({
                       return (
                         <span
                           key={i}
-                          ref={(el) => (charRefs.current[i] = el)}
+                          ref={(el) => {
+                            charRefs.current[i] = el;
+                          }}
                           className="char-span"
                           aria-hidden={!visible}
                         >
@@ -264,7 +266,9 @@ export default function ChristmasCard({
                     return (
                       <span
                         key={i}
-                        ref={(el) => (charRefs.current[i] = el)}
+                        ref={(el) => {
+                          charRefs.current[i] = el;
+                        }}
                         className={`char-span ${
                           visible ? "char-visible" : "char-hidden"
                         }`}

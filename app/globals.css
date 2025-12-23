@@ -415,10 +415,10 @@ body {
 
 .memories-root {
   position: relative;
-  width: 100vw;
+  height: 100vh;
   padding: 20px 6vw;
-  overflow: hidden;
-  background-image: url("../public/backgrounds/bg-desktop.png");
+  overflow: hidden; /* nền KHÔNG scroll */
+  background-image: url("../public/backgrounds/bg-desktop-v3.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -427,24 +427,36 @@ body {
 /* Mobile */
 @media (max-width: 768px) {
   .memories-root {
-    background-image: url("../public/backgrounds/bg-mobile.png");
+    background-image: url("../public/backgrounds/bg-mobile-v3.png");
   }
 }
 
+.memories-scroll {
+  height: 100%;
+  overflow-y: auto;
+
+  scrollbar-width: none;
+
+  -ms-overflow-style: none;
+}
+
+.memories-scroll::-webkit-scrollbar {
+  display: none;
+}
+/* GRID */
 .memories-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 24px;
 }
 
+/* ITEM */
 .memories-item {
   position: relative;
   width: 100%;
   aspect-ratio: 4 / 5;
-
   overflow: hidden;
   border-radius: 20px;
-
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
 }
 
@@ -510,7 +522,6 @@ body {
   }
 }
 
-/* overlay tối */
 .words-overlay {
   position: fixed;
   inset: 0;

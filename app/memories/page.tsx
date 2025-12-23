@@ -58,50 +58,54 @@ export default function MemoriesPage() {
   return (
     <PageTransition>
       <section className="memories-root">
-        {/* GRID */}
-        <motion.div
-          className="memories-grid"
-          initial="hidden"
-          animate="show"
-          variants={{
-            show: {
-              transition: { staggerChildren: 0.18 },
-            },
-          }}
-        >
-          {images.map((src) => (
-            <motion.div
-              key={src}
-              className="memories-item"
-              variants={{
-                hidden: { opacity: 0, y: 30 },
-                show: {
-                  opacity: 1,
-                  y: 0,
-                  transition: {
-                    duration: 0.8,
-                    ease: [0.22, 1, 0.36, 1],
+        <div className="memories-scroll">
+          <motion.div
+            className="memories-grid"
+            initial="hidden"
+            animate="show"
+            variants={{
+              show: {
+                transition: { staggerChildren: 0.18 },
+              },
+            }}
+          >
+            {images.map((src) => (
+              <motion.div
+                key={src}
+                className="memories-item"
+                variants={{
+                  hidden: { opacity: 0, y: 30 },
+                  show: {
+                    opacity: 1,
+                    y: 0,
+                    transition: {
+                      duration: 0.8,
+                      ease: [0.22, 1, 0.36, 1],
+                    },
                   },
-                },
-              }}
-              onClick={() => setActiveImage(src)}
-            >
-              <Image
-                src={src}
-                alt=""
-                fill
-                sizes="(max-width: 768px) 100vw, 33vw"
-                className="memories-image"
-              />
-            </motion.div>
-          ))}
-        </motion.div>
+                }}
+                onClick={() => setActiveImage(src)}
+              >
+                <Image
+                  src={src}
+                  alt=""
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="memories-image"
+                />
+              </motion.div>
+            ))}
+          </motion.div>
 
-        <AnimatePresence>
-          {activeImage && (
-            <Lightbox src={activeImage} onClose={() => setActiveImage(null)} />
-          )}
-        </AnimatePresence>
+          <AnimatePresence>
+            {activeImage && (
+              <Lightbox
+                src={activeImage}
+                onClose={() => setActiveImage(null)}
+              />
+            )}
+          </AnimatePresence>
+        </div>
       </section>
     </PageTransition>
   );
