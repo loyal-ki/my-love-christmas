@@ -52,7 +52,7 @@ export function HomePage() {
                 <NeumorphismCard
                   id="words"
                   icon="/icons/heart.png"
-                  title="Những tâm từ"
+                  title="Những tâm tư dành cho em"
                   onSelect={handleSelect}
                 />
                 <NeumorphismCard
