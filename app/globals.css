@@ -1,26 +1,934 @@
-@import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html,
+body {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* =====================================================
+   LOADING / SPLASH SCREEN
+===================================================== */
+.loading-container {
+  position: fixed;
+  inset: 0;
+  background-color: #0f3d2e;
+  overflow: hidden;
+}
+
+.content {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+}
+
+/* =====================================================
+   LOTTIE
+===================================================== */
+.lottie-wrapper {
+  width: 420px; /* Desktop: to rõ */
+  max-width: 85vw;
+}
+
+/* =====================================================
+   TEXT
+===================================================== */
+.loading-text {
+  margin-top: 24px;
+  color: #ffffff;
+  font-size: 20px;
+  opacity: 0.9;
+}
+
+/* =====================================================
+   ENTER BUTTON
+===================================================== */
+.enter-button {
+  margin-top: 36px;
+  padding: 14px 36px;
+
+  font-size: 18px;
+  font-weight: 600;
+  color: #0f3d2e;
+
+  background: #ffffff;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+  transition: box-shadow 0.3s ease;
+}
+
+.enter-button:hover {
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* =====================================================
+   MOBILE RESPONSIVE
+===================================================== */
+@media (max-width: 640px) {
+  .lottie-wrapper {
+    width: 260px;
+  }
+
+  .loading-text {
+    font-size: 15px;
+  }
+
+  .enter-button {
+    font-size: 15px;
+    padding: 12px 28px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* =====================================================
+   OPTIONAL: SMOOTH PAGE TRANSITION CONTAINER
+===================================================== */
+.page-wrapper {
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* =====================================================
+   CUTE CHRISTMAS MUSIC TOGGLE 🎵🎄
+===================================================== */
+.music-toggle {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 50;
+
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 24px;
+  background: #ffffff;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ICON */
+.music-toggle .icon {
+  position: relative;
+  z-index: 2;
+}
+
+/* RING GLOW */
+.music-toggle .ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0)
+  );
+  filter: blur(6px);
+  z-index: 1;
+}
+
+/* ON STATE */
+.music-toggle.on {
+  background: linear-gradient(135deg, #ffffff, #eafff3);
+  box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7), 0 12px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* OFF STATE */
+.music-toggle.off {
+  background: #e0e0e0;
+  opacity: 0.85;
+}
+
+/* MOBILE */
+@media (max-width: 640px) {
+  .music-toggle {
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
+    right: 14px;
+    bottom: 14px;
+  }
+}
+
+/* ===== PARALLAX ===== */
+
+.parallax-root {
+  scroll-snap-type: y proximity;
+}
+
+.parallax-section {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.parallax-image {
+  width: 320px;
+  height: 440px;
+  object-fit: cover;
+  border-radius: 24px;
+}
+
+.parallax-index {
+  position: absolute;
+  left: calc(50% + 180px);
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 56px;
+  color: white;
+}
+
+/* ===== MINI PROGRESS ===== */
+
+.mini-progress {
+  position: fixed;
+  left: 40px;
+  bottom: 36px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  z-index: 50;
+}
+
+.mini-progress-bar {
+  width: 120px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.mini-progress-fill {
+  height: 100%;
+  background: white;
+  transform-origin: left;
+}
+
+/* ===============================
+   HOME ROOT
+================================ */
+
+.home-root {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-image: url("../public/backgrounds/bg-desktop.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .home-root {
+    background-image: url("../public/backgrounds/bg-mobile.png");
+  }
+}
+
+/* ===============================
+   CONTENT LAYER
+================================ */
+
+.home-content {
+  position: relative;
+  z-index: 3;
+
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  pointer-events: auto;
+}
+
+/* ===============================
+   NEUMORPHISM GRID
+================================ */
+
+.neo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+  width: min(640px, 90%);
+  height: auto;
+}
+
+@media (max-width: 320px) {
+  .neo-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+/* ===============================
+   NEUMORPHISM CARD
+================================ */
+
+.neo-card {
+  position: relative;
+  border-radius: 12px;
+  padding: 20px 20px;
+
+  background: rgba(190, 190, 190, 0.18);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  border: 0.5px solid rgba(255, 255, 255, 0.25);
+
+  cursor: pointer;
+  text-align: left;
+
+  /* 🌫 Soft neumorphism shadow */
+  box-shadow: 6px 6px 18px rgba(0, 0, 0, 0.25),
+    -6px -6px 18px rgba(255, 255, 255, 0.15);
+
+  transition: all 0.25s ease;
+}
+
+.neo-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.22),
+    -4px -4px 14px rgba(255, 255, 255, 0.18);
+}
+
+.neo-card {
+  transition: transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 0.35s ease;
+}
+
+.neo-card:hover {
+  transform: translateY(-6px);
+  animation: neo-float 6s ease-in-out infinite;
+  box-shadow: 6px 6px 18px rgba(0, 0, 0, 0.28),
+    -6px -6px 18px rgba(255, 255, 255, 0.22);
+}
+
+/* ===============================
+   ICON
+================================ */
+
+.neo-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  margin-bottom: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 20px;
+
+  background: rgba(255, 255, 255, 0.22);
+
+  box-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.25),
+    inset -3px -3px 6px rgba(255, 255, 255, 0.25);
+}
+
+.neo-title {
+  font-size: 18px;
+  font-weight: 500;
+  color: #e6d3a3;
+  letter-spacing: 0.4px;
+  font-family: pacifico;
+}
+
+.neo-subtitle {
+  font-size: 14px;
+  color: #e6d3a3;
+  letter-spacing: 0.3px;
+}
+
+.neo-icon {
+  transition: transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 0.35s ease;
+}
+
+@keyframes neo-wobble {
+  0% {
+    transform: rotate(0deg) translateY(0);
+  }
+  30% {
+    transform: rotate(-0.6deg) translateY(-2px);
+  }
+  60% {
+    transform: rotate(0.6deg) translateY(-2px);
+  }
+  100% {
+    transform: rotate(0deg) translateY(-2px);
+  }
+}
+
+.card-expand {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.85) 0%,
+    rgba(255, 255, 255, 0.25) 30%,
+    rgba(255, 255, 255, 0.15) 55%,
+    rgba(255, 255, 255, 0.05) 75%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* ===============================
+   MEMORIES GALLERY
+================================ */
+
+.memories-root {
+  position: relative;
+  width: 100vw;
+  padding: 20px 6vw;
+  overflow: hidden;
+  background-image: url("../public/backgrounds/bg-desktop.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .memories-root {
+    background-image: url("../public/backgrounds/bg-mobile.png");
+  }
+}
+
+.memories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.memories-item {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+
+  overflow: hidden;
+  border-radius: 20px;
+
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+.memories-image {
+  object-fit: cover;
+}
+
+/* ===============================
+   LIGHTBOX
+================================ */
+
+.lightbox-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+
+  background: rgba(15, 61, 46, 0.75);
+  backdrop-filter: blur(10px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox-image-wrapper {
+  position: relative;
+  width: min(92vw, 1000px);
+  height: min(90vh, 720px);
+
+  border-radius: 20px;
+  overflow: hidden;
+
+  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.5);
+}
+
+.lightbox-image {
+  object-fit: contain;
+}
+
+/* ===============================
+   WORDS 
+================================ */
+
+.words-root {
+  inset: 0;
+  padding: 20px 6vw;
+  overflow: hidden;
+  height: 100vh;
+  background-image: url("../public/backgrounds/bg-desktop-v2.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .words-root {
+    background-image: url("../public/backgrounds/bg-mobile-v2.png");
+    height: auto;
+  }
+}
+
+/* overlay tối */
+.words-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  z-index: 10;
+}
+
+.xmas-card-closed {
+  width: 220px;
+  height: 140px;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 14px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  box-shadow: 6px 6px 16px rgba(0, 0, 0, 0.35),
+    -6px -6px 16px rgba(255, 255, 255, 0.08);
+}
+
+.xmas-card-open-wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.xmas-card-3d {
+  width: 420px;
+  height: 280px;
+  position: relative;
+  perspective: 1200px;
+}
+
+/* mặt chung */
+.xmas-card-front,
+.xmas-card-inside {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.xmas-card-front {
+  background: linear-gradient(135deg, #c62828, #8e0000);
+  color: white;
+}
+
+.xmas-card-inside {
+  background: #fffdf8;
+  color: #333;
+  transform: rotateY(180deg);
+  text-align: center;
+}
+
+.xmas-card-inside button {
+  margin-top: 16px;
+}
+
+/* backdrop for open card */
+.xmas-open-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  background: rgba(0, 0, 0, 0.62);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* wrapper centered */
+.xmas-open-wrapper {
+  width: min(920px, 92vw);
+  height: min(600px, 82vh);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+}
+
+/* perspective holder */
+.xmas-perspective {
+  perspective: 1600px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 3D card area */
+.xmas-card-3d {
+  width: 78%;
+  height: 78%;
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+/* the inside (back) page */
+.xmas-inner-back {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #fffdf7, #fff8f0);
+  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+  backface-visibility: hidden;
+  padding: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inside-content {
+  max-width: 74%;
+  text-align: left;
+}
+
+.inside-title {
+  font-size: 28px;
+  margin: 0 0 12px 0;
+  color: #0d2b22;
+}
+
+.inside-text {
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(13, 43, 34, 0.9);
+}
+
+/* front cover */
+.xmas-front-cover {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #c73b3b, #8a1212);
+  color: white;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+.cover-content {
+  text-align: center;
+  padding: 24px;
+}
+.cover-title {
+  font-size: 26px;
+  margin: 0;
+  font-weight: 700;
+}
+.cover-sub {
+  opacity: 0.9;
+  margin-top: 8px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* small closed card (on page before open) */
+.xmas-card-closed {
+  width: 220px;
+  height: 140px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  color: white;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+  padding: 14px;
+  box-shadow: 6px 6px 18px rgba(0, 0, 0, 0.35),
+    -6px -6px 14px rgba(255, 255, 255, 0.04);
+}
+
+.small-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.small-title {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* responsive tweaks */
+@media (max-width: 720px) {
+  .xmas-open-wrapper {
+    width: 94vw;
+    height: 84vh;
+  }
+  .xmas-card-3d {
+    width: 94%;
+    height: 86%;
+  }
+  .inside-title {
+    font-size: 22px;
+  }
+}
+
+.xmas-front-cover {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  backface-visibility: hidden;
+}
+
+.card-front-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.35),
+    rgba(0, 0, 0, 0.55)
+  );
+  z-index: 1;
+}
+
+.cover-content {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+  color: white;
+  padding: 24px;
+}
+
+.cover-title {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.cover-sub {
+  font-size: 13px;
+  opacity: 0.9;
+  letter-spacing: 0.3px;
+}
+
+/* inside text chars */
+.inside-text {
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(13, 43, 34, 0.95);
+  text-align: left;
+  max-width: 100%;
+  word-break: break-word;
+  /* ensure relative container for pen coords */
+  position: relative;
+}
+
+/* each char span is inline-block so we can measure */
+.char-span {
+  display: inline-block;
+  white-space: pre-wrap;
+  min-width: 2px;
+}
+
+/* invisible vs visible text */
+.char-hidden {
+  color: transparent;
+}
+.char-visible {
+  color: inherit;
+  transition: color 0.08s linear;
+}
+
+/* pen image */
+.typing-pen {
+  width: 44px; /* nib size */
+  height: auto;
+  transform-origin: left center;
+  z-index: 30;
+  will-change: left, top, transform;
+  /* slight rotation to emulate hand writing angle */
+  transform: rotate(-18deg);
+}
+
+/* adjust pen vertical offset tweak for small screens */
+@media (max-width: 720px) {
+  .typing-pen {
+    width: 36px;
+  }
+}
+
+/* ===== WORD PREVIEW CARD ===== */
+.word-preview-card {
+  position: relative;
+  width: 180px;
+  height: 240px;
+  border-radius: 18px;
+  overflow: hidden;
+  cursor: pointer;
+
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+
+  transition: box-shadow 0.3s ease;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .word-preview-card {
+    width: 220px;
+    height: 360px;
+  }
+}
+
+.word-preview-card:hover {
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+}
+
+.word-preview-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.25),
+    rgba(0, 0, 0, 0.6)
+  );
+  z-index: 1;
+}
+
+.word-preview-text {
+  position: absolute;
+  z-index: 2;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+
+  color: white;
+}
+
+.word-preview-text h3 {
+  font-size: 18px;
+  margin: 0 0 6px 0;
+}
+
+.word-preview-text p {
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+.words-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 240px);
+  gap: 32px;
+}
+
+@media (max-width: 768px) {
+  .words-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.floating-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.floating-item {
+  position: absolute;
+  opacity: 0.85;
+  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.35));
+}
+
+@media (max-width: 768px) {
+  .floating-item {
+    opacity: 0.6;
+  }
+}
+
+/* ===== CHAOS FLOATING IMAGES ===== */
+.chaos-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.chaos-item {
+  position: absolute;
+  will-change: transform;
+  opacity: 0.8;
+  filter: drop-shadow(0 12px 30px rgba(0, 0, 0, 0.35));
 }
