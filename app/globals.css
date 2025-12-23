@@ -251,6 +251,24 @@ body {
   }
 }
 
+.quiz-root {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-image: url("../public/backgrounds/bg-desktop-v4.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .home-root {
+    background-image: url("../public/backgrounds/bg-mobile-v4.png");
+  }
+}
+
 /* ===============================
    CONTENT LAYER
 ================================ */
@@ -942,4 +960,17 @@ body {
   will-change: transform;
   opacity: 0.8;
   filter: drop-shadow(0 12px 30px rgba(0, 0, 0, 0.35));
+}
+
+.option-span {
+  font-family: pacifico;
+  font-size: 16px;
+  color: #07315f;
+}
+
+
+.ghost {
+  font-family: pacifico;
+  font-size: 16px;
+  color: #eb6a1f;
 }

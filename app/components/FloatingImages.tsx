@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type FloatingImagesProps = {
   count?: number;
@@ -49,8 +49,13 @@ export default function FloatingImages({
   speed = 0.45,
   amplitude = 35,
 }: FloatingImagesProps) {
-  // ✅ Random chỉ chạy 1 lần khi mount
-  const [items] = useState<FloatingItem[]>(() => generateItems(count, speed));
+  const [items, setItems] = useState<FloatingItem[]>([]);
+
+  useEffect(() => {
+    setItems(generateItems(count, speed));
+  }, [count, speed]);
+
+  if (items.length === 0) return null;
 
   return (
     <div className="floating-layer">
