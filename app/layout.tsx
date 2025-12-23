@@ -1,5 +1,5 @@
 import "./globals.css";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import GlobalMusic from "./components/GlobalMusic";
 import MusicToggle from "./components/MusicToggle";
 import SnowProvider from "./components/SnowProvider";
@@ -17,7 +17,13 @@ const pacifico = Pacifico({
 export const metadata: Metadata = {
   title: "My Love Christmas 🎄",
   description: "Christmas Landing Page with Snow, Music & Animation",
-  viewport: "width=device-width, initial-scale=1",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({

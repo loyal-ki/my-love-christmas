@@ -1,12 +1,15 @@
-"use client";
+import type { Metadata, Viewport } from "next";
+import RootClient from "./RootClient";
 
-import PageTransition from "./components/PageTransition";
-import LoadingScreen from "./components/LoadingScreen";
+export const metadata: Metadata = {
+  title: "My Love",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
 
 export default function Page() {
-  return (
-    <PageTransition>
-      <LoadingScreen />
-    </PageTransition>
-  );
+  return <RootClient />;
 }
