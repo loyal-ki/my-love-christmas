@@ -53,7 +53,7 @@ chúng ta đang đi đúng hướng.`,
   {
     id: 4,
     title: "TƯƠNG LAI",
-    preview: "/cards/christmas-front-4.png",
+    preview: "/cards/christmas-front-4.jpg",
     small: "/cards/christmas-card-front-4.jpg",
     text: `Rồi sẽ có một ngày,
 khoảng cách chỉ còn là câu chuyện cũ.

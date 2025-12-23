@@ -264,7 +264,7 @@ body {
 
 /* Mobile */
 @media (max-width: 768px) {
-  .home-root {
+  .quiz-root {
     background-image: url("../public/backgrounds/bg-mobile-v4.png");
   }
 }
