@@ -1,20 +1,3 @@
 {
-    "routes": [
-        {
-            "src": "/",
-            "dest": "/"
-        },
-        {
-            "src": "/home",
-            "dest": "/home"
-        },
-        {
-            "src": "/words",
-            "dest": "/words"
-        },
-        {
-            "src": "/memories",
-            "dest": "/memories"
-        }
-    ]
+  "rewrites": [{ "source": "/(.*)", "destination": "/" }]
 }
